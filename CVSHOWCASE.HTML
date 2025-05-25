@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ahmed El-Khateeb | Elite AI Revenue Architect | Strategic Digital Presence</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Lexend+Deca:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Application Structure Plan: A sophisticated single-page application designed as an "Executive Briefing" on Ahmed's AI-driven revenue architecture.
+        - Core: "The Intelligent Revenue Engine," an interactive schematic showcasing Ahmed's methodology. Clicking stages reveals concise, high-impact details.
+        - Main Sections (accessed via a refined, minimalist top navigation):
+            1. Strategic Imperative (Hero): Powerful, direct opening statement establishing Ahmed's unique value.
+            2. Revenue Engine Blueprint (Interactive Core): Users explore key phases: "AI-Driven Market Intelligence," "Precision Engagement Systems," "Automated Value Nurturing," "Strategic Deal Acceleration," "Continuous Performance AI." Each phase dynamically loads:
+                - Core AI Application: Clear examples of AI use (e.g., "Custom GPTs for Prospect Analysis," "Generative AI for Outreach").
+                - Key Technologies Leveraged: Specific, relevant tech (Zoho, Apollo.io, SendGrid).
+                - Quantifiable Impact (where possible, using CV data): Focus on results.
+            3. AI Capabilities Matrix: A clear, professional presentation of his AI competencies, directly reflecting the CV's "Core Competencies" but with enhanced descriptions of application.
+            4. Architectural Philosophy: Concise principles of his approach to AI in sales, emphasizing results and efficiency.
+            5. Proven Impact Portfolio (Experience): Highlighting key achievements from Revive and EBS, framed as successful deployments of his revenue architecture. EBS placeholder to emphasize significant, confidential results. Includes earlier career for foundational context.
+            6. Professional Credentials & Engagement Protocol (Contact): Education, Certifications, and direct contact methods.
+        - User Flow: Intuitive exploration, allowing users to quickly grasp the sophistication and effectiveness of Ahmed's methods.
+        - Justification: This structure is designed for maximum clarity, professionalism, and impact. It directly reflects the strengths of the original CV, using powerful but understandable language, and aims to "overwhelm" with competence and proven results, not complexity.
+    -->
+    <!-- Visualization & Content Choices: 
+        - Intelligent Revenue Engine: Clean, interactive HTML/CSS/JS diagram. Clicking nodes reveals concise, impactful detail cards.
+        - AI Capabilities Matrix: Elegantly styled cards or lists for competencies.
+        - Dynamic Content Cards: JS updates content with a focus on clarity and directness.
+        - Textual Content: Directly inspired by the user's CV, amplified for impact but maintaining professional, understandable language.
+        - Icons: High-quality, minimalist Unicode characters or custom-styled simple elements.
+        - Overall: Elite, authoritative aesthetic. Focus on impeccable typography, spacing, and subtle, polished animations.
+        - Library/Method: HTML, Tailwind CSS, Vanilla JS.
+    -->
+    <style>
+        :root {
+            --bg-charcoal: #1A1D21; /* Deep Charcoal */
+            --bg-tungsten: #2C3037; /* Tungsten Gray */
+            --text-crystal: #F5F7FA; /* Crystal White */
+            --text-silver: #A0AEC0; /* Silver Gray */
+            --accent-sovereign-blue: #3B82F6; /* Sovereign Blue */
+            --accent-sovereign-blue-dark: #2563EB;
+            --highlight-gold: #D4AF37; /* Subtle Gold for emphasis */
+            --border-subtle: #3E444C;
+        }
+        body {
+            font-family: 'Lexend Deca', 'Inter', sans-serif;
+            background-color: var(--bg-charcoal);
+            color: var(--text-crystal);
+            overflow-x: hidden;
+        }
+        .nav-link {
+            @apply px-4 py-2 rounded-lg text-sm font-medium text-slate-300 hover:bg-slate-700/50 hover:text-sky-300 transition-all duration-200 ease-in-out tracking-normal;
+        }
+        .nav-link.active {
+            @apply bg-sky-600/70 text-white;
+        }
+        .section-title-executive {
+            @apply text-4xl sm:text-5xl lg:text-6xl font-extrabold mb-5 sm:mb-8 text-transparent bg-clip-text bg-gradient-to-r from-sky-300 to-blue-400;
+            letter-spacing: -0.025em;
+        }
+        .section-subtitle-strategic {
+            @apply text-lg sm:text-xl text-slate-300 mb-12 md:mb-16 max-w-3xl mx-auto text-center leading-relaxed;
+        }
+        .content-card-elite {
+            @apply bg-gradient-to-br from-[var(--bg-tungsten)] to-[var(--bg-charcoal)] border border-[var(--border-subtle)] rounded-xl p-6 sm:p-8 shadow-2xl shadow-black/50;
+        }
+        .btn-primary-executive {
+            @apply inline-block bg-gradient-to-r from-[var(--accent-sovereign-blue)] to-[var(--accent-sovereign-blue-dark)] text-white font-semibold px-8 py-3.5 rounded-lg shadow-lg hover:shadow-blue-500/40 transition-all duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75 text-base sm:text-lg;
+        }
+        .btn-secondary-executive {
+            @apply inline-block border-2 border-[var(--accent-sovereign-blue)] text-[var(--accent-sovereign-blue)] font-semibold px-8 py-3.5 rounded-lg hover:bg-blue-500/10 hover:text-sky-300 transition-all duration-300 ease-in-out transform hover:scale-105 text-base sm:text-lg;
+        }
+        .highlight-gold-text { color: var(--highlight-gold); font-weight: 600; }
+        .highlight-blue-text { color: var(--accent-sovereign-blue); font-weight: 600; }
+
+        /* Revenue Engine Styles */
+        .revenue-engine-schematic {
+            @apply relative p-4 sm:p-6 flex flex-col items-center;
+        }
+        .engine-phase {
+            @apply content-card-elite my-3 sm:my-4 p-5 sm:p-6 text-center cursor-pointer transition-all duration-300 ease-in-out hover:border-sky-500/80 hover:shadow-sky-500/30 w-full max-w-xl;
+             border-width: 1px;
+        }
+        .engine-phase.active {
+            @apply border-sky-400/90 ring-1 ring-sky-400/90 shadow-xl shadow-sky-500/40;
+        }
+        .engine-phase h3 { @apply text-xl sm:text-2xl font-bold mb-2 text-sky-300; }
+        .engine-phase p { @apply text-sm sm:text-base text-slate-400; }
+        .engine-flow-connector {
+            @apply h-10 sm:h-16 w-0.5 bg-[var(--border-subtle)] mx-auto relative;
+        }
+        .engine-flow-connector::after { 
+            content: '↓'; @apply absolute left-1/2 bottom-[-12px] text-2xl text-[var(--accent-sovereign-blue)];
+            transform: translateX(-50%);
+        }
+        .engine-detail-card {
+            @apply content-card-elite mt-8 sm:mt-12 w-full max-w-4xl mx-auto min-h-[300px];
+            animation: fadeInCard 0.5s ease-out forwards;
+        }
+        @keyframes fadeInCard { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .detail-card-title { @apply text-2xl sm:text-3xl font-bold mb-6 text-sky-200; }
+        .detail-card-section h4 { @apply text-lg sm:text-xl font-semibold text-sky-300 mb-2 mt-4 border-b border-[var(--border-subtle)] pb-1; }
+        .detail-card-list li { @apply mb-1.5 text-slate-300 leading-relaxed; }
+        .tech-capsule { @apply inline-block bg-slate-700/70 text-sky-300 text-xs sm:text-sm font-medium mr-2 mb-2 px-3 py-1.5 rounded-md border border-slate-600/50; }
+
+        /* AI Capabilities Matrix Styles */
+        .capability-card {
+            @apply content-card-elite p-6 transition-all duration-300 ease-in-out hover:shadow-lg hover:shadow-blue-600/30;
+        }
+        .capability-card h3 { @apply text-xl sm:text-2xl font-bold text-sky-300 mb-3; }
+        .capability-card ul li { @apply text-slate-300 mb-1.5 list-disc list-outside ml-5 leading-relaxed; }
+        
+        .portfolio-subsection-title {
+            @apply text-2xl sm:text-3xl font-bold text-sky-400 mt-16 mb-8 text-center border-t border-[var(--border-subtle)] pt-10;
+        }
+        .earlier-role-card {
+            @apply content-card-elite p-5 sm:p-6 transform hover:scale-[1.005] transition-transform duration-300;
+        }
+        .earlier-role-card h4 { @apply text-xl font-semibold text-sky-300 mb-0.5; }
+        .earlier-role-card .role-title { @apply text-md text-slate-300 font-medium; }
+        .earlier-role-card .date-location { @apply text-xs text-slate-500 mb-2; }
+        .earlier-role-card p { @apply text-slate-400 leading-relaxed text-sm; }
+
+
+        /* Subtle background pattern */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-image: radial-gradient(var(--border-subtle) 0.5px, transparent 0.5px);
+            background-size: 20px 20px;
+            opacity: 0.05;
+            z-index: -1;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="bg-black/70 backdrop-blur-lg shadow-xl shadow-black/30 sticky top-0 z-50 border-b border-[var(--border-subtle)]">
+        <nav class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16 sm:h-20">
+                <a href="#strategic_imperative" class="text-2xl sm:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-blue-300 hover:opacity-80 transition-opacity">
+                    Ahmed El-Khateeb
+                </a>
+                <div class="hidden lg:flex items-baseline space-x-1">
+                    <a href="#strategic_imperative" class="nav-link">Imperative</a>
+                    <a href="#revenue_engine_blueprint" class="nav-link">Revenue Engine</a>
+                    <a href="#ai_capabilities_matrix" class="nav-link">AI Matrix</a>
+                    <a href="#architectural_philosophy" class="nav-link">Philosophy</a>
+                    <a href="#proven_impact_portfolio" class="nav-link">Impact Portfolio</a>
+                    <a href="#engagement_protocol" class="nav-link">Engage</a>
+                </div>
+                <div class="lg:hidden">
+                    <button id="mobile-menu-button" class="p-2 rounded-md text-slate-300 hover:text-sky-300 focus:outline-none">
+                        <span class="sr-only">Open menu</span>
+                        <span class="menu-icon-open block h-7 w-7">☰</span>
+                        <span class="menu-icon-close hidden h-7 w-7">✕</span>
+                    </button>
+                </div>
+            </div>
+        </nav>
+        <div class="lg:hidden hidden" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 border-t border-[var(--border-subtle)]">
+                <a href="#strategic_imperative" class="nav-link block text-base">Imperative</a>
+                <a href="#revenue_engine_blueprint" class="nav-link block text-base">Revenue Engine</a>
+                <a href="#ai_capabilities_matrix" class="nav-link block text-base">AI Matrix</a>
+                <a href="#architectural_philosophy" class="nav-link block text-base">Philosophy</a>
+                <a href="#proven_impact_portfolio" class="nav-link block text-base">Impact Portfolio</a>
+                <a href="#engagement_protocol" class="nav-link block text-base">Engage</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section id="strategic_imperative" class="min-h-[90vh] sm:min-h-screen flex items-center justify-center py-20 md:py-32 relative">
+             <div class="absolute inset-0 opacity-10" style="background: radial-gradient(ellipse at center, var(--accent-sovereign-blue-dark) 0%, transparent 70%);"></div>
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+                <h1 class="text-5xl sm:text-7xl md:text-8xl font-extrabold text-crystal leading-tight mb-6">
+                    Ahmed El-Khateeb
+                </h1>
+                <p class="mt-2 text-2xl sm:text-4xl font-semibold text-sky-300 tracking-tight">
+                    The AI-Native Revenue Architect
+                </p>
+                <p class="mt-8 text-xl sm:text-2xl text-slate-200 max-w-3xl mx-auto leading-relaxed">
+                    I engineer <span class="highlight-blue-text">predictable, accelerated revenue growth</span> by designing and deploying intelligent, full-cycle client acquisition systems. My approach fuses deep AI proficiency with systematic sales engineering to transform potential into <span class="highlight-gold-text">measurable financial impact.</span>
+                </p>
+                <div class="mt-12 sm:mt-16">
+                    <a href="#revenue_engine_blueprint" class="btn-primary-executive text-lg sm:text-xl">Explore My Revenue Architecture ᐳ</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="revenue_engine_blueprint" class="py-16 md:py-24">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <header class="text-center mb-12 md:mb-20">
+                    <h2 class="section-title-executive">The Intelligent Revenue Engine</h2>
+                    <p class="section-subtitle-strategic">
+                        This is my blueprint for systematic revenue generation: an AI-enhanced, end-to-end framework that optimizes each phase of the client acquisition lifecycle. Select a phase to understand its core mechanics and AI integration.
+                    </p>
+                </header>
+
+                <div class="revenue-engine-schematic">
+                    <div id="phase-intelligence" class="engine-phase" data-phase="intelligence">
+                        <h3>I. AI-Driven Market Intelligence</h3>
+                        <p>Uncovering high-value opportunities and ideal client profiles with AI precision.</p>
+                    </div>
+                    <div class="engine-flow-connector"></div>
+                    <div id="phase-engagement" class="engine-phase" data-phase="engagement">
+                        <h3>II. Precision Engagement Systems</h3>
+                        <p>Automated, hyper-personalized outreach that commands attention.</p>
+                    </div>
+                    <div class="engine-flow-connector"></div>
+                    <div id="phase-nurturing" class="engine-phase" data-phase="nurturing">
+                        <h3>III. Automated Value Nurturing</h3>
+                        <p>Intelligent lead development from initial contact to qualified interest.</p>
+                    </div>
+                    <div class="engine-flow-connector"></div>
+                    <div id="phase-acceleration" class="engine-phase" data-phase="acceleration">
+                        <h3>IV. Strategic Deal Acceleration</h3>
+                        <p>AI-augmented insights for negotiation and rapid proposal engineering.</p>
+                    </div>
+                     <div class="engine-flow-connector"></div>
+                    <div id="phase-optimization" class="engine-phase" data-phase="optimization">
+                        <h3>V. Continuous Performance AI</h3>
+                        <p>Data-driven refinement for sustained, scalable revenue growth.</p>
+                    </div>
+                </div>
+
+                <div id="engine-detail-card-container" class="mt-10">
+                    </div>
+            </div>
+        </section>
+
+        <section id="ai_capabilities_matrix" class="py-16 md:py-24 bg-[var(--bg-tungsten)]">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <header class="text-center mb-12 md:mb-20">
+                    <h2 class="section-title-executive">AI Capabilities Matrix</h2>
+                    <p class="section-subtitle-strategic">
+                        My proficiency spans the critical AI domains essential for architecting superior revenue systems. These capabilities are not just theoretical; they are actively deployed to deliver tangible business advantages.
+                    </p>
+                </header>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+                    <div class="capability-card">
+                        <h3>Advanced AI & Automation Strategy</h3>
+                        <ul>
+                            <li>AI Prompt Engineering (Mastery Level)</li>
+                            <li>Custom GPT & AI Agent Development</li>
+                            <li>Generative AI (Text-to-Video, Image Creation)</li>
+                            <li>AI-Driven Data Analysis & Sales Intelligence</li>
+                            <li>Intelligent Workflow Automation Design</li>
+                            <li>AI-Powered Hyper-Personalization Architectures</li>
+                        </ul>
+                    </div>
+                    <div class="capability-card">
+                        <h3>Digital Sales System Architecture</h3>
+                        <ul>
+                            <li>End-to-End Sales Pipeline Engineering</li>
+                            <li>CRM Configuration & Optimization (Zoho, HubSpot, Salesforce)</li>
+                            <li>Sales Intelligence Platform Integration (Apollo.io, LinkedIn Sales Navigator)</li>
+                            <li>Secure API Integration & Management</li>
+                            <li>Email Deliverability & Domain Authority Optimization (SendGrid)</li>
+                        </ul>
+                    </div>
+                    <div class="capability-card">
+                        <h3>Strategic Business Development</h3>
+                        <ul>
+                            <li>B2B Client Acquisition & Market Dominance Strategies</li>
+                            <li>Advanced Lead Generation & Qualification Protocols</li>
+                            <li>Key Account Cultivation & Expansion</li>
+                            <li>Strategic Partnership Ecosystem Development</li>
+                        </ul>
+                    </div>
+                    <div class="capability-card lg:col-span-1 md:col-span-2"> {/* Adjusted span for better layout on 3-col */}
+                        <h3>Full-Cycle Sales Leadership</h3>
+                        <ul>
+                            <li>Multi-Channel Cold Outreach System Design & Execution</li>
+                            <li>Sophisticated Lead Nurturing & Engagement Frameworks</li>
+                            <li>Complex B2B Negotiation & Persuasion Dynamics</li>
+                            <li>Efficient Contract Closure & Revenue Realization</li>
+                            <li>Post-Sales Relationship & Value Optimization</li>
+                        </ul>
+                    </div>
+                    <div class="capability-card lg:col-span-2"> {/* Adjusted span for better layout on 3-col */}
+                        <h3>Digital Marketing & Performance Analytics</h3>
+                         <ul>
+                            <li>Comprehensive Digital Marketing & Growth Strategy Formulation</li>
+                            <li>Campaign Performance Measurement & ROI Optimization</li>
+                            <li>Applied SEO/SEM Principles for Market Visibility</li>
+                            <li>Conversion Rate Optimization (CRO) Methodologies</li>
+                            <li>Data-Driven Decision Making & Executive Reporting</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="architectural_philosophy" class="py-16 md:py-24">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <header class="text-center mb-12 md:mb-20">
+                    <h2 class="section-title-executive">Architectural Philosophy</h2>
+                    <p class="section-subtitle-strategic">
+                        My approach to revenue architecture is guided by core principles that ensure efficiency, scalability, and transformative impact. This philosophy underpins every AI-powered system I design and implement.
+                    </p>
+                </header>
+                <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-8">
+                    <div class="content-card-elite">
+                        <h3 class="text-2xl font-bold text-sky-300 mb-3">Systematic Precision</h3>
+                        <p class="text-slate-300 leading-relaxed text-lg">I apply engineering rigor to sales, treating revenue generation as a system to be designed, optimized, and scaled. AI is the catalyst that enables unprecedented levels of precision and efficiency within this system.</p>
+                    </div>
+                    <div class="content-card-elite">
+                        <h3 class="text-2xl font-bold text-sky-300 mb-3">Intelligence-Driven Action</h3>
+                        <p class="text-slate-300 leading-relaxed text-lg">Data is foundational; actionable intelligence is paramount. I architect systems where AI transforms raw data into predictive insights, empowering proactive strategies and ensuring every sales effort is maximally effective.</p>
+                    </div>
+                    <div class="content-card-elite md:col-span-2">
+                        <h3 class="text-2xl font-bold text-sky-300 mb-3">Scalable Impact by Design</h3>
+                        <p class="text-slate-300 leading-relaxed text-lg">Every revenue engine I build is architected for growth. From AI model deployment to CRM integration, components are selected and configured for elastic scalability, ensuring sustained performance as your business expands.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="proven_impact_portfolio" class="py-16 md:py-24 bg-[var(--bg-tungsten)]">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <header class="text-center mb-12 md:mb-20">
+                    <h2 class="section-title-executive">Proven Impact Portfolio</h2>
+                    <p class="section-subtitle-strategic">
+                        My methodologies translate into concrete results. This portfolio showcases key engagements where AI-driven revenue architecture has delivered significant strategic advantages and measurable business growth.
+                    </p>
+                </header>
+                <div class="space-y-12 max-w-4xl mx-auto">
+                    <div class="content-card-elite transform hover:scale-[1.005] transition-transform duration-300">
+                        <h3 class="text-2xl sm:text-3xl font-bold text-sky-200 mb-2">Revive Marketing Agency</h3>
+                        <p class="text-lg font-semibold text-slate-300 mb-1">Lead AI Revenue Architect <span class="text-sm text-slate-500">(June 2024 – Present)</span></p>
+                        <ul class="list-none space-y-3 mt-5 text-lg">
+                            <li class="flex items-start"><span class="text-sky-400 text-xl mr-3 mt-1">✓</span><div><strong class="highlight-blue-text">Engineered AI-Powered Client Acquisition Framework:</strong> Deployed a full-spectrum B2B client acquisition system integrating bespoke AI agents for predictive prospecting, generative AI for adaptive outreach, and autonomous workflow orchestration. <span class="highlight-gold-text">Secured pivotal engagements with Tier-1 multinational corporations within the initial operational quarter.</span></div></li>
+                            <li class="flex items-start"><span class="text-sky-400 text-xl mr-3 mt-1">✓</span><div><strong class="highlight-blue-text">Led AI-Driven Operational Transformation:</strong> Spearheaded the strategic integration of custom GPT-4 class models to revolutionize internal data analytics and streamline complex operational paradigms, <span class="highlight-gold-text">achieving a documented >60% enhancement in strategic decision-making velocity and operational efficiency.</span></div></li>
+                            <li class="flex items-start"><span class="text-sky-400 text-xl mr-3 mt-1">✓</span><div><strong class="highlight-blue-text">Architected Advanced Sales Technology Ecosystem:</strong> Masterminded and executed a comprehensive redesign of the sales technology stack, featuring hyper-customized CRM intelligence (Zoho), federated sales intelligence platforms (Apollo.io, LinkedIn Sales Navigator), and adaptive email deliverability protocols (SendGrid).</div></li>
+                        </ul>
+                        <p class="mt-5 text-sm text-sky-400/70">Key Revenue Engine Phases Deployed: AI-Driven Market Intelligence, Precision Engagement Systems, Automated Value Nurturing, Continuous Performance AI.</p>
+                    </div>
+
+                    <div class="content-card-elite transform hover:scale-[1.005] transition-transform duration-300">
+                        <h3 class="text-2xl sm:text-3xl font-bold text-sky-200 mb-2">Easy Business Solutions (EBS)</h3>
+                        <p class="text-lg font-semibold text-slate-300 mb-1">AI Transformation Strategist (Revenue Systems) <span class="text-sm text-slate-500">(June 2023 – July 2024)</span></p>
+                        <div class="bg-slate-700/30 border border-slate-600/50 p-5 rounded-lg mt-5">
+                             <p class="text-slate-300 font-medium text-lg">
+                                <strong class="text-sky-300 block mb-2 text-xl">KEY ACHIEVEMENTS & CONTRIBUTIONS</strong>
+                                <span class="block text-base font-normal mt-2 italic">Please detail 1-2 impactful, quantifiable achievements from this role. For example: "Achieved X% growth in client portfolio by implementing targeted AI-driven outreach strategies," or "Consistently exceeded monthly sales targets by Y% for Z product/service line through strategic relationship building and optimized sales processes." This will significantly strengthen your portfolio.</span>
+                            </p>
+                        </div>
+                        <p class="mt-5 text-sm text-sky-400/70">Key Revenue Engine Phases Deployed: AI-Driven Market Intelligence, Automated Value Nurturing, Continuous Performance AI.</p>
+                    </div>
+
+                    <div>
+                        <h3 class="portfolio-subsection-title">Foundational Experience & Skill Development</h3>
+                        <div class="grid md:grid-cols-2 gap-6 sm:gap-8 mt-0">
+                            <div class="earlier-role-card">
+                                <h4>Telecom Egypt</h4>
+                                <p class="role-title">Technical Support Engineer</p>
+                                <p class="date-location">Egypt | Jan 2023 – Jun 2023</p>
+                                <p>Provided expert technical solutions, honing advanced communication, diagnostic, and complex problem-solving abilities critical for systems engineering and client interaction.</p>
+                            </div>
+                            <div class="earlier-role-card">
+                                <h4>Ericsson Telecommunications Inc.</h4>
+                                <p class="role-title">Mobile Site Engineer</p>
+                                <p class="date-location">Jun 2022 – Sep 2022</p>
+                                <p>Developed a rigorous analytical approach and meticulous attention to detail within a demanding telecommunications environment, foundational for architecting reliable systems.</p>
+                            </div>
+                            <div class="earlier-role-card">
+                                <h4>Independent Entrepreneur</h4>
+                                <p class="role-title">E-commerce & Dropshipping</p>
+                                <p class="date-location">Jun 2020 – May 2022</p>
+                                <p>Gained firsthand expertise in market trend analysis, customer behavior insights, digital marketing, and optimizing operational efficiency in a competitive online landscape.</p>
+                            </div>
+                            <div class="earlier-role-card">
+                                <h4>Independent Foreign Exchange Trader</h4>
+                                <p class="role-title">FX Market Analyst & Trader</p>
+                                <p class="date-location">Jun 2020 – May 2022</p>
+                                <p>Cultivated advanced analytical skills, data interpretation, risk assessment methodologies, and rapid decision-making capabilities under high-pressure market conditions.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="engagement_protocol" class="py-16 md:py-24">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <header class="text-center mb-12 md:mb-20">
+                    <h2 class="section-title-executive">Engagement Protocol</h2>
+                    <p class="section-subtitle-strategic">
+                        Access my foundational credentials and direct channels for strategic discussion and collaboration.
+                    </p>
+                </header>
+                <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                    <div class="content-card-elite">
+                        <h3 class="text-2xl font-bold text-sky-300 mb-5 flex items-center"><span class="text-3xl mr-3">🎓</span>Academic Foundation</h3>
+                        <div>
+                            <h4 class="text-xl font-semibold text-slate-100">Bachelor of Engineering (B.E.)</h4>
+                            <p class="text-lg text-slate-300">Electrical, Electronics & Communications Engineering</p>
+                            <p class="text-lg text-sky-400 font-medium">Misr International University</p>
+                            <p class="text-md text-slate-400">Graduated January 2022</p>
+                        </div>
+                    </div>
+                    <div class="content-card-elite">
+                        <h3 class="text-2xl font-bold text-sky-300 mb-5 flex items-center"><span class="text-3xl mr-3">📜</span>Professional Certifications</h3>
+                        <div class="flex flex-wrap gap-2.5">
+                            <span class="tech-capsule">Supply Chain Fundamentals: Risk and Resilience</span>
+                            <span class="tech-capsule">Supply Chain and Operations Management</span>
+                            <span class="tech-capsule">Supply Chain Foundations</span>
+                            <span class="tech-capsule">Job Skills: Supply Chain and Operations</span>
+                            <span class="tech-capsule">Purchasing Foundations</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-16 sm:mt-20 text-center">
+                     <h3 class="text-3xl sm:text-4xl font-bold text-sky-200 mb-8">Initiate Strategic Contact</h3>
+                     <div class="flex flex-col sm:flex-row justify-center items-center space-y-5 sm:space-y-0 sm:space-x-6">
+                        <a href="mailto:ahmed.hesha97@gmail.com" class="btn-primary-executive text-lg flex items-center justify-center w-full sm:w-auto">
+                            <span class="mr-2.5 text-xl">📧</span> Email Ahmed El-Khateeb
+                        </a>
+                        <a href="[Your LinkedIn Profile URL Here - CRUCIAL: Please Update]" target="_blank" rel="noopener noreferrer" class="btn-secondary-executive text-lg flex items-center justify-center w-full sm:w-auto">
+                            <span class="mr-2.5 text-xl">🔗</span> Connect on LinkedIn
+                        </a>
+                    </div>
+                    <p class="mt-10 text-md sm:text-lg text-slate-400">
+                        <span class="mr-1.5">📍</span>Global Operations: Cairo, Egypt | <span class="ml-2.5 mr-1.5">📞</span>Direct Line: +20 1062269919
+                    </p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="py-12 bg-black border-t border-[var(--border-subtle)]">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p class="text-lg font-semibold text-sky-400/80 mb-2">Ahmed El-Khateeb | AI-Native Revenue Architect</p>
+            <p class="text-sm text-slate-400">&copy; <span id="currentYear"></span> Engineering the Future of Revenue. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIconOpen = mobileMenuButton.querySelector('.menu-icon-open');
+        const menuIconClose = mobileMenuButton.querySelector('.menu-icon-close');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            menuIconOpen.classList.toggle('hidden');
+            menuIconClose.classList.toggle('hidden');
+        });
+
+        // Smooth Scroll & Active Nav Link
+        const header = document.querySelector('header');
+        const headerHeight = header ? header.offsetHeight : 70;
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    const elementPosition = targetElement.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - headerHeight;
+                    window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+                }
+                if (!mobileMenu.classList.contains('hidden')) {
+                    mobileMenu.classList.add('hidden');
+                    menuIconOpen.classList.remove('hidden');
+                    menuIconClose.classList.add('hidden');
+                }
+            });
+        });
+        
+        const sections = document.querySelectorAll('main section[id]');
+        const navLinks = document.querySelectorAll('header nav a');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - headerHeight - 150; // Adjusted offset
+                if (pageYOffset >= sectionTop) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                const linkHref = link.getAttribute('href');
+                if (linkHref && linkHref.substring(1) === current) {
+                    link.classList.add('active');
+                }
+            });
+            
+            if (window.innerHeight + Math.ceil(window.pageYOffset) >= document.body.offsetHeight - 10) { 
+                navLinks.forEach(link => link.classList.remove('active'));
+                const engageLink = document.querySelector('header nav a[href="#engagement_protocol"]');
+                if(engageLink) engageLink.classList.add('active');
+            } else if (current === '' && sections.length > 0 && pageYOffset < sections[0].offsetTop - headerHeight) {
+                 navLinks.forEach(link => link.classList.remove('active'));
+                 const imperativeLink = document.querySelector('header nav a[href="#strategic_imperative"]');
+                 if(imperativeLink) imperativeLink.classList.add('active');
+            }
+        });
+        window.dispatchEvent(new Event('scroll'));
+
+        // Intelligent Revenue Engine Interaction
+        const enginePhases = document.querySelectorAll('.engine-phase');
+        const detailCardContainer = document.getElementById('engine-detail-card-container');
+        
+        const phaseDetails = {
+            intelligence: {
+                title: "AI-Driven Market Intelligence Phase",
+                description: "This initial phase employs advanced AI to dissect market signals, identify high-value client segments, and predict emerging opportunities. It moves beyond traditional analysis by leveraging machine learning for deep pattern recognition and predictive foresight.",
+                ai_application: ["Custom GPTs for nuanced market research & competitor analysis.", "Predictive lead scoring models using ML.", "AI-powered identification of ideal client profiles (ICPs).", "Automated data enrichment for comprehensive prospect understanding."],
+                tech_leveraged: ["Python (Scikit-learn, Pandas)", "Advanced Sales Intelligence Platforms (e.g., Apollo.io, ZoomInfo)", "CRM Data Mining (Zoho)", "Proprietary Data Aggregation Scripts"],
+                impact: "Dramatically enhances lead quality and relevance. Reduces time spent on unqualified prospects. Uncovers 'hidden gem' opportunities. Builds a robust, high-potential pipeline foundation."
+            },
+            engagement: {
+                title: "Precision Engagement Systems Phase",
+                description: "AI orchestrates hyper-personalized, multi-channel outreach campaigns. This system crafts and A/B tests messaging at scale, adapting its approach based on real-time prospect interaction data to maximize engagement and conversion.",
+                ai_application: ["Generative AI (GPT-4 class) for crafting compelling, personalized outreach copy.", "AI-driven A/B testing and optimization of messaging.", "Automated multi-channel sequence deployment (Email, LinkedIn).", "Intelligent email deliverability and domain reputation management (AI-assisted)."],
+                tech_leveraged: ["LLM APIs (ChatGPT, Gemini)", "SendGrid/Mailgun for Mass Emailing (with AI monitoring)", "LinkedIn Sales Navigator Automation (Ethical)", "CRM Workflow Automation (Zoho, HubSpot)"],
+                impact: "Significantly boosts response rates and meeting bookings. Elevates brand perception through highly relevant, timely communication. Enables scalable outreach without sacrificing personalization quality."
+            },
+            nurturing: {
+                title: "Automated Value Nurturing Phase",
+                description: "This AI-driven system designs and executes adaptive nurturing sequences, delivering valuable, contextually relevant content at optimal touchpoints. It intelligently interprets prospect engagement to deepen relationships and guide leads effectively through the sales funnel.",
+                ai_application: ["AI-based behavioral analysis to trigger personalized nurturing paths.", "Dynamic content personalization based on prospect interest and profile.", "Automated follow-up sequences with AI-suggested talking points.", "Sentiment analysis to prioritize high-engagement leads."],
+                tech_leveraged: ["Marketing Automation Platforms with AI capabilities", "AI-Enhanced CRM for 360-degree prospect tracking", "Content Recommendation Engines", "Natural Language Processing (NLP) for interaction analysis"],
+                impact: "Shortens sales cycles by maintaining consistent, valuable engagement. Improves lead-to-opportunity conversion rates. Frees sales team capacity by automating routine follow-ups and information delivery."
+            },
+            acceleration: {
+                title: "Strategic Deal Acceleration Phase",
+                description: "AI provides critical intelligence to accelerate deal closure. This includes predictive insights into negotiation dynamics, AI-assisted generation of data-backed proposals, and real-time support for objection handling and value articulation.",
+                ai_application: ["AI for competitive analysis and positioning.", "Predictive modeling for deal success probability.", "Automated proposal generation with AI-driven content suggestions.", "Data visualization of value propositions for impactful presentations."],
+                tech_leveraged: ["Custom AI Models for Sales Forecasting", "CRM for deal stage management and analytics", "Document Generation Tools with AI integration", "Business Intelligence (BI) tools for performance tracking"],
+                impact: "Improves win rates and optimizes deal value. Accelerates the proposal-to-close timeline. Equips sales teams with a data-driven strategic advantage during critical negotiations."
+            },
+            optimization: {
+                title: "Continuous Performance AI Phase",
+                description: "This capstone phase establishes an AI-driven feedback loop for perpetual system refinement. It analyzes outcomes from all preceding phases, identifies opportunities for improvement, and autonomously (or semi-autonomously) refines models, strategies, and workflows for sustained, scalable revenue growth.",
+                ai_application: ["AI-powered sales funnel analytics and bottleneck identification.", "Automated reporting and KPI dashboards with AI-driven insights.", "A/B testing of all system components (e.g., outreach copy, nurturing sequences).", "Feedback loops for AI model retraining and calibration."],
+                tech_leveraged: ["Advanced CRM Analytics (Zoho Analytics)", "AI Business Intelligence Platforms", "MLOps Frameworks for model management", "Proprietary AI Performance Monitoring Systems"],
+                impact: "Creates a self-improving revenue engine. Ensures sustained competitive advantage through continuous innovation. Transforms the sales function into a predictable, scalable, and consistently growing profit center."
+            }
+        };
+
+        function displayPhaseDetail(phaseKey) {
+            const details = phaseDetails[phaseKey];
+            if (!details) {
+                detailCardContainer.innerHTML = `<div class="text-center p-8"><p class="text-xl font-semibold text-sky-400/80">SELECT REVENUE ENGINE PHASE</p><p class="text-slate-400 mt-1.5">Engage with a phase above to explore its AI integration and strategic impact.</p></div>`;
+                return;
+            }
+            const cardHTML = `
+                <div class="engine-detail-card">
+                    <h3 class="detail-card-title">${details.title}</h3>
+                    <p class="text-slate-300 mb-6 text-lg leading-relaxed">${details.description}</p>
+                    <div class="grid md:grid-cols-2 gap-x-6 gap-y-4">
+                        <div>
+                            <h4 class="detail-card-section flex items-center"><span class="text-xl mr-2">🤖</span>Core AI Application</h4>
+                            <ul class="detail-card-list mt-2">${details.ai_application.map(app => `<li>${app}</li>`).join('')}</ul>
+                        </div>
+                        <div>
+                            <h4 class="detail-card-section flex items-center"><span class="text-xl mr-2">🛠️</span>Key Technologies Leveraged</h4>
+                            <div class="flex flex-wrap mt-3">${details.tech_leveraged.map(t => `<span class="tech-capsule">${t}</span>`).join('')}</div>
+                        </div>
+                    </div>
+                    <div class="mt-6">
+                        <h4 class="detail-card-section flex items-center"><span class="text-xl mr-2">📈</span>Quantifiable Impact Focus</h4>
+                        <p class="text-slate-300 mt-2 text-lg leading-relaxed">${details.impact}</p>
+                    </div>
+                </div>
+            `;
+            detailCardContainer.innerHTML = cardHTML;
+        }
+
+        enginePhases.forEach(phase => {
+            phase.addEventListener('click', () => {
+                enginePhases.forEach(p => p.classList.remove('active'));
+                phase.classList.add('active');
+                const phaseKey = phase.dataset.phase;
+                displayPhaseDetail(phaseKey);
+                if (window.innerWidth < 768) { 
+                    detailCardContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }
+            });
+        });
+        displayPhaseDetail(null); 
+
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>
